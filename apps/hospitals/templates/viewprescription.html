@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="appointment section-bg mt-5" id="appointment">
+
+    <div class="container p-5 my-5 border" style="backdrop-filter: blur(15px);">
+        <h2 class="text-center p-2">Write prescription</h2>
+         <div class="row">
+             <div class="col-md-5 form-group mt-3">
+                <h4>Doctor- {{services.specialist}}</h4>
+            </div>
+
+            <div class="col-md-5 form-group mt-3 ">
+                <h4>Department- {{patients.services}}</h4>
+            </div>
+             <div class="col-md-2 form-group mt-3 ">
+            <a class="appointment-btn scrollto" href="{% url 'home' %}">
+
+                        Back to Home</a>
+            </div>
+
+        </div>
+
+        <form >
+            {% csrf_token %}
+                <div class="row">
+            <div class="col-md-5 form-group mt-3 d-flex">
+                <p class="me-2 " >Name-</p>
+                <select class="form-control " >x
+                    <option value="{{prescription.name}}"> {{prescription.name}} </option>
+                </select>
+            </div>
+
+
+            <div class="col-md-2 form-group mt-3">
+              <p>Weight- {{patients.weight}}</p>
+            </div>
+
+             <div class="col-md-2 form-group mt-3">
+                  <p>Age- {{patients.age}}</p>
+             </div>
+
+             <div class="col-md-2 form-group mt-3">
+                  <p>Gender- {{patients.gender}}</p>
+             </div>
+
+        </div>
+
+            <div class="form-group mt-3">
+                <textarea class="form-control" name="tablets" placeholder="write Medicines" rows="4" value="{{prescription.tablets}}" ></textarea>
+            </div>
+
+           <div class="form-group mt-3">
+                <textarea class="form-control" name="description" placeholder="Description (Optional)" value="{{prescription.description}}" rows="3"></textarea>
+            </div>
+
+
+                     <div class="text-center mt-3">
+                        <button class="appointment-btn " type="submit">
+                            <span class="d-none d-md-inline"> </span>Submit
+                        </button>
+                    </div>
+
+     </form>
+    </div>
+</section>
+<!-- Template Main JS File -->
+
+{% endblock%}

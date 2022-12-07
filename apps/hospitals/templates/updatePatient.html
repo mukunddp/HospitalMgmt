@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<section class="appointment section-bg mt-5" id="appointment">
+
+    <div class="container mt-5">
+
+        <div class="section-title">
+
+            <h2>Make an Appointment</h2>
+
+            <p> Please Enter Valid Details</p>
+
+        </div>
+
+        <form action="{% url 'saveupdate' s.id %}" class="php-email-form" method="POST">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col-md-6 form-group">
+                        <input type="text" class="form-control bg-light" id="name" name="name"
+                               placeholder="Please Enter your name" value="{{s.name}}">
+                </div>
+
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                    <input class="form-control" data-msg="Please enter a valid email"
+                           placeholder="Your Email (Optional)"
+                    >
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 form-group mt-3 ">
+                        <input type="number" class="form-control bg-light" id="mobile" name="mobile"
+                               placeholder="Please Enter your mobile number" value="{{s.mobile}}">
+                </div>
+
+                <div class="col-md-6 form-group mt-3">
+                    <input type="text" class="form-control bg-light" id="gender" name="gender"
+                               placeholder="Please Enter your gender" value="{{s.gender}}">
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-6 form-group mt-3 ">
+                        <input type="number" class="form-control bg-light" id="weight" name="weight"
+                               placeholder="Please Enter your weight"  value="{{s.weight}}">
+                </div>
+
+                <div class="col-md-6 form-group mt-3">
+                    <input type="number" class="form-control bg-light" id="age" name="age"
+                               placeholder="Please Enter your age" value="{{s.age}}">
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 form-group mt-3">
+
+                     <select class="form-control bg-light" name="services">
+                                <option value=" {{s.services }} " >{{s.services }}</option>
+                            {% for service in  services %}
+                                <option value=" {{service.id }} ">{{service.services }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-6 form-group mt-3">
+                        <input type="text" class="form-control bg-light" id="address" name="address"
+                               placeholder="Please Enter your address" value="{{s.address}}">
+                </div>
+
+            </div>
+
+            <div class="form-group mt-3">
+                <textarea class="form-control" name="message" placeholder="Message (Optional)" rows="5"></textarea>
+            </div>
+
+            <div class="text-center mt-3">
+                <button class="btn btn-primary me-2 " type="Submit">Submit</button>
+            </div>
+
+        </form>
+
+    </div>
+</section><!-- End Appointment Section -->
+
+
+
+{% endblock%}

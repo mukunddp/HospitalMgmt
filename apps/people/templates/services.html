@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+    <section class="counts">
+
+    <div class="container p-5 my-5 border" style="backdrop-filter: blur(15px);">
+        {% if user.is_authenticated %}
+        <h2 class="text-center p-2">Our Services !</h2>
+
+
+        <div class="d-flex justify-content-between">
+                <a class="appointment-btn scrollto" href="{% url 'addServices' %}">
+                    <span class="d-none d-md-inline"> Add Services </span> </a>
+
+                <a class="appointment-btn scrollto" href="{% url 'addPatient' %}">
+                    <span class="d-none d-md-inline"> Add Patient </span> </a>
+
+        </div>
+        <br>
+        <table class="table table-striped">
+            <thead>
+            <th scope="col" style="text-align: center;">Id</th>
+            <th scope="col" style="text-align: center;">Services</th>
+            <th scope="col" style="text-align: center;">Availability</th>
+            <th scope="col" style="text-align: center;">Specialist</th>
+            <th scope="col" style="text-align: center;">Action</th>
+            </thead>
+
+            <tbody>
+            {% for services in serviceList%}
+
+            <tr>
+                <td>{{services.id}}</td>
+                <td class="fw-bold" style="text-align: center;">{{services.services}}</td>
+                <td class="fw-bold" style="text-align: center;">{{services.availability}}</td>
+                <td class="fw-bold" style="text-align: center;">{{services.specialist}}</td>
+                <td style="text-align: center;">
+                    <a class="appointment-btn bg-secondary" href="{% url 'updateServices' services.id %}">
+                        <span class="d-none d-md-inline"> Update Services </span>
+                    </a>
+                    <a class="appointment-btn bg-danger " href="{% url 'deleteService' services.id %}">
+                        <span class="d-none d-md-inline"> Delete Services </span>
+                    </a>
+
+
+                </td>
+            </tr>
+
+            {%endfor%}
+            </tbody>
+        </table>
+
+        {% else %}
+
+        <h2 class="text-center p-2">Our Services !</h2>
+
+
+        <table class="table table-striped">
+
+            <thead>
+            <th scope="col" style="text-align: center;">Id</th>
+            <th scope="col" style="text-align: center;">Services</th>
+            <th scope="col" style="text-align: center;">Availability</th>
+            <th scope="col" style="text-align: center;">Specialist</th>
+            </thead>
+
+            <tbody>
+            {% for services in serviceList%}
+            <tr>
+                <td style="text-align: center;">{{services.id}}</td>
+                <td class="fw-bold" style="text-align: center;">{{services.services}}</td>
+                <td class="fw-bold" style="text-align: center;">{{services.availability}}</td>
+                <td class="fw-bold" style="text-align: center;">{{services.specialist}}</td>
+            </tr>
+
+            {%endfor%}
+
+            </tbody>
+        </table>
+
+        {% endif %}
+
+    </div>
+
+</section>
+  {% endblock%}

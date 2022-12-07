@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<section class="vh-85">
+    <section class="appointment section-bg mt-4" id="appointment">
+
+        <div class="container ">
+
+            <div class="section-title">
+
+                <h2>Add Departments</h2>
+
+                <p> Add Departments with the name of specialist in that department and availability </p>
+
+            </div>
+
+            {% if user.is_authenticated %}
+
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <div class="alert alert-primary " role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+
+            <form action="{% url 'store' %}" class="php-email-form" method="POST">
+                {% csrf_token %}
+
+                <div class="col-12">
+                    <label class="form-label" for="services">Service Name</label>
+                    <input class="form-control bg-light" id="services" name="services" placeholder="Please Enter Service name"
+                           type="text">
+                </div>
+
+                <div class="row mt-3">
+
+                    <div class="col-md-6 form-group mt-3 mt-md-0">
+                       <input class="form-control bg-light" id="Specialist" name="specialist" placeholder="Please Enter Name of Specialist"
+                           type="text">
+                    </div>
+
+                    <div class="col-md-6 form-group mt-3 mt-md-0">
+                          <input class="form-control bg-light" id="availability" name="availability" placeholder="Please Enter availability"
+                           type="text">
+                    </div>
+
+                </div>
+
+                <hr>
+
+
+                <div class="text-center mt-3">
+                    <button class="btn btn-primary me-2 " type="Submit">Submit</button>
+                </div>
+
+
+            </form>
+                  {% endif %}
+        </div>
+    </section>
+</section>
+{% endblock%}

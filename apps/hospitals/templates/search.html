@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section  class="counts">
+{% if user.is_authenticated %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-primary " role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endif %}
+
+<div class="container p-5 my-5 border" style="backdrop-filter: blur(15px);">
+    {% if user.is_authenticated %}
+
+    <h2 class="text-center p-2">Patient's dashboard</h2>
+
+
+    <div class="d-flex align-items-center">
+        <form class="form-inline d-flex align-items-center "  action="{% url 'search' %}" method="get">
+               {% csrf_token %}
+
+            <input class="form-control mr-sm-2" type="search" name="searched" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if patientList < 1%}
+    <p> No search Results </p>
+
+    Your search result: <b>{{searched}}</b> did not match any name. <br>
+    suggestions:
+    <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try different keywords.</li>
+        <li>Try more general keywords.</li>
+    </ul>
+    {% endif %}
+
+
+    <table class="table table-striped">
+        <thead>
+        <th scope="col" style="text-align: center;">Id</th>
+        <th scope="col" style="text-align: center;">Name</th>
+        <th scope="col" style="text-align: center;">Age</th>
+        <th scope="col" style="text-align: center;">Weight</th>
+        <th scope="col" style="text-align: center;">Gender</th>
+        <th scope="col" style="text-align: center;">Mobile</th>
+        <th scope="col" style="text-align: center;">Address</th>
+        <th scope="col" style="text-align: center;">Appointment</th>
+        <th scope="col" style="text-align: center;">Action</th>
+
+        </thead>
+        <tbody>
+        {% for patients in patientList%}
+        <tr>
+            <td>{{patients.id}}</td>
+            <td style="text-align: center;"><a href="{% url 'prescription' patients.id %}" >{{patients.name}}</a></td>
+            <td style="text-align: center;">{{patients.age}}</td>
+            <td style="text-align: center;">{{patients.weight}}</td>
+            <td style="text-align: center;">{{patients.gender}}</td>
+            <td style="text-align: center;">{{patients.mobile}}</td>
+            <td style="text-align: center;">{{patients.address}}</td>
+            <td style="text-align: center;">{{patients.services}}</td>
+            <td>
+                <a class="appointment-btn " href="{% url 'updatePatient' patients.id %}">
+                    <span class="d-none d-md-inline"> Update </span>
+                </a>
+
+                <a class="appointment-btn bg-secondary" href="{% url 'deletePatient' patients.id %}">
+                    <span class="d-none d-md-inline"> Delete </span>
+                </a>
+
+            </td>
+            {%endfor%}
+        </tbody>
+    </table>
+
+
+    {% else %}
+    <h2 class="text-center p-2">Patient's dashboard</h2>
+
+    <table class="table">
+        <thead>
+
+        <th>Total Patients : {{count}}</th>
+
+        </thead>
+
+    </table>
+
+
+
+    {% endif %}
+</div>
+</section>
+{% endblock%}
